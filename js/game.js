@@ -1,28 +1,4 @@
 /**
- * Ensures a value is numeric and finite.
- *
- * Returns true if the value if a number or a numeric string, false otherwise.
- */
-function isNumeric(value) {
-    
-    // Force the value to be a number.
-    v = +value;
-
-    // Not a number.
-    if (isNaN(v)) {
-        return false;
-    }
-
-    // Infinite number.
-    if (!isFinite(v)) {
-        return false;
-    }
-
-    // Value is numeric and finite.
-    return true;
-
-}
-/**
  * Primary game object.
  *
  * Controls the flow of the game.
@@ -109,50 +85,3 @@ Game.prototype.execute = function() {
  */
 Game.prototype.title = function() {
 }
-/**
- * Adds a class to an element.
- */
-function addClass(element, name) {
-    element.className = name;
-}
-
-
-/**
- * Removes a class from an element.
- */
-function removeClass(element, name) {
-    var regex = new RegExp('(?:^|\\s)' + name + '(?!\\S)', 'g');
-
-    element.className = element.className.replace(regex, '');
-}
-
-
-/**
- * Retrieves an element by its ID.
- */
-var getElement = document.getElementById.bind(document);
-
-
-/**
- * Hides an element.
- */
-function hideElement(element) {
-    element.className += 'hidden';
-}
-
-
-/**
- * Un-hides an element.
- */
-function showElement(element) {
-    element.className -= 'hidden';
-}
-/**
- * Configuration settings for the game and its underlying engine.
- */
-var config = {
-
-    // The desired frames per second.
-    fps: 30
-
-};
