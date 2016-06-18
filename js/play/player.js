@@ -15,14 +15,14 @@ function Player(first) {
     addClass(this.graphic, "player");
 
     // Position player.
-    centerVertically(this.graphic);
+    centerElementVertically(this.graphic);
     if (first) {
         this.graphic.style.left = "32px";
     } else {
         this.graphic.style.right = "32px";
     }
     
-    // Insert the player element.
+    // Insert the visual element.
     view.appendChild(this.graphic);
 
 }

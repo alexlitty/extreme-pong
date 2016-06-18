@@ -9,6 +9,9 @@ function PlayState() {
     this.playerOne = new Player(true);
     this.playerTwo = new Player(false);
 
+    // Create a single ball.
+    this.ball = new Ball;
+
     // Initialize state loop.
     setInterval(this.execute.bind(this), game.fpsInterval);
 

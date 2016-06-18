@@ -4,3 +4,11 @@
 
     background-color: #efefef;
 }
+
+#state-play .ball {
+    position: absolute;
+    display: inline-block;
+
+    border-radius: 50%;
+    background-color: #efefef;
+}
