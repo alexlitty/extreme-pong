@@ -20,4 +20,5 @@ body {
 
 body > section {
     position: relative;
+    height: 100%;
 }
