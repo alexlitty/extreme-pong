@@ -28,6 +28,9 @@ function Game() {
     // Start the title screen.
     this.state = new TitleState;
 
+    // Calculate the interval needed for the desired FPS.
+    this.fpsInterval = (1 / config.fps) * 1000;
+
     // Now that the game is initialized, un-hide the body.
     showElement(document.body);
 
