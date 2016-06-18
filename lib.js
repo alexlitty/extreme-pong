@@ -1,4 +1,39 @@
 /**
+ * Controls the flow of the title screen.
+ *
+ * Callback is invoked when the user responds to the title screen.
+ */
+function TitleState() {
+
+    var title = getElement("state-title");
+
+    // Show title screen.
+    showElement(title);
+
+    // Listen for user response.
+    title.addEventListener("click", TitleState.stop);
+
+}
+
+
+/**
+ * Stops the Title state and initiates a new Play state.
+ */
+TitleState.stop = function() {
+
+    var title = getElement("state-title");
+
+    // Hide title screen.
+    hideElement(title);
+
+    // Stop listening for user response.
+    title.removeEventListener("click", TitleState.stop);
+
+    // Start a Play state.
+    game.state = new PlayState;
+
+}
+/**
  * Adds a class to an element.
  */
 function addClass(element, name) {
@@ -78,7 +113,7 @@ function isNumeric(value) {
 
 }
 /**
- * The single instance of our game.
+ * The central instance of our game.
  */
 var game;
 
@@ -98,31 +133,14 @@ window.onload = function() {
  */
 function Game() {
 
-    // An "enumeration" of possible game states.
-    this.STATES = {
-        ERROR: 0,
-        TITLE: 1,
-        PLAY: 2,
-        RESULT: 3
-    };
-
-    // Initialize game state.
-    this.toState(this.STATES.TITLE);
-
-    // Validate FPS setting.
-    if (!isNumeric(config.fps)) {
-        this.stop("Invalid FPS");
-        return;
+    // Hide all states.
+    var stateElements = document.getElementsByTagName("section");
+    for (var i = 0; i < stateElements.length; i++) {
+        hideElement(stateElements[i]);
     }
 
-    // Calculate the interval needed to get our target framerate.
-    var loopInterval = (1 / config.fps);
-
-    // Convert the interval to milliseconds.
-    loopInterval *= 1000;
-
-    // Start the game.
-    this.intervalHandle = setInterval(this.execute.bind(this), loopInterval);
+    // Start the title screen.
+    this.state = new TitleState;
 
     // Now that the game is initialized, un-hide the body.
     showElement(document.body);
@@ -131,74 +149,10 @@ function Game() {
 
 
 /**
- * Moves the gameplay into a different state.
- *
- * If provided with an invalid state, execute() will stop the game.
+ * Sets the current state object running the game.
  */
-Game.prototype.toState = function(state) {
-
-    // Update the current state.
-    this.state = state;
-
-    // Hide all states.
-    hideElement(getElement("state-error"));
-    hideElement(getElement("state-title"));
-
-    // Move to error state.
-    if (state === this.STATES.ERROR) {
-        showElement(getElement("state-error"));
-    }
-
-    // Move to title screen.
-    else if (state === this.STATES.TITLE) {
-        showElement(getElement("state-title"));
-    }
-}
-
-
-/**
- * Halts the game and displays an error.
- */
-Game.prototype.stop = function(msg) {
-
-    // Stop main loop.
-    clearInterval(this.intervalHandle);
-
-    // Set error state.
-    this.toState(this.STATES.ERROR);
-
-    // Set error message.
-    getElement("error-message").innerHTML = msg;
-}
-
-
-/**
- * Executes a single frame of the game.
- */
-Game.prototype.execute = function() {
-
-    // Intentionally do nothing on an error.
-    if (this.state === this.STATES.ERROR) {
-
-    }
-
-    // Execute title frame.
-    else if (this.state === this.STATES.TITLE) {
-        this.title(); 
-    }
-
-    // Invalid state.
-    else {
-        this.stop("Invalid game state");
-    }
-}
-
-
-/**
- * Executes a single frame of the title screen.
- */
-Game.prototype.title = function() {
-
+Game.prototype.setState = function(newState) {
+    this.state = newState;
 }
 /**
  * Configuration settings for the game and its underlying engine.
