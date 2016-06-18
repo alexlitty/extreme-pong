@@ -2,3 +2,7 @@
     text-align: center;
     margin-top: 128px;
 }
+
+#state-error h1 {
+    font-size: 200%;
+}

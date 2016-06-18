@@ -1,5 +1,19 @@
 /**
- * Primary game object.
+ * The single instance of our game.
+ */
+var game;
+
+
+/**
+ * Once the page loads, create the instance of our game.
+ */
+window.onload = function() {
+    game = new Game;
+}
+
+
+/**
+ * Central game object.
  *
  * Controls the flow of the game.
  */
@@ -13,8 +27,8 @@ function Game() {
         RESULT: 3
     };
 
-    // Current game state.
-    this.state = this.STATES.TITLE;
+    // Initialize game state.
+    this.toState(this.STATES.TITLE);
 
     // Validate FPS setting.
     if (!isNumeric(config.fps)) {
@@ -31,14 +45,35 @@ function Game() {
     // Start the game.
     this.intervalHandle = setInterval(this.execute.bind(this), loopInterval);
 
+    // Now that the game is initialized, un-hide the body.
+    showElement(document.body);
+
 }
 
 
 /**
  * Moves the gameplay into a different state.
+ *
+ * If provided with an invalid state, execute() will stop the game.
  */
 Game.prototype.toState = function(state) {
 
+    // Update the current state.
+    this.state = state;
+
+    // Hide all states.
+    hideElement(getElement("state-error"));
+    hideElement(getElement("state-title"));
+
+    // Move to error state.
+    if (state === this.STATES.ERROR) {
+        showElement(getElement("state-error"));
+    }
+
+    // Move to title screen.
+    else if (state === this.STATES.TITLE) {
+        showElement(getElement("state-title"));
+    }
 }
 
 
@@ -51,10 +86,10 @@ Game.prototype.stop = function(msg) {
     clearInterval(this.intervalHandle);
 
     // Set error state.
-    this.state = this.STATES.ERROR;
+    this.toState(this.STATES.ERROR);
 
     // Set error message.
-    getElement("state-error").innerHTML = msg;
+    getElement("error-message").innerHTML = msg;
 }
 
 
@@ -62,18 +97,18 @@ Game.prototype.stop = function(msg) {
  * Executes a single frame of the game.
  */
 Game.prototype.execute = function() {
-    this.stop("Testing");
 
-    console.log("executing");
-
-
+    // Intentionally do nothing on an error.
     if (this.state === this.STATES.ERROR) {
+
     }
 
+    // Execute title frame.
     else if (this.state === this.STATES.TITLE) {
         this.title(); 
     }
 
+    // Invalid state.
     else {
         this.stop("Invalid game state");
     }
@@ -84,4 +119,5 @@ Game.prototype.execute = function() {
  * Executes a single frame of the title screen.
  */
 Game.prototype.title = function() {
+
 }

@@ -1,4 +1,59 @@
 /**
+ * Adds a class to an element.
+ */
+function addClass(element, name) {
+    
+    // Bad element.
+    if (!element) {
+        console.warn("Adding '" + name + "' class to invalid element: ", element);
+        return;
+    }
+
+    // Add class.
+    element.className += name;
+
+}
+
+
+/**
+ * Removes a class from an element.
+ */
+function removeClass(element, name) {
+
+    // Bad element.
+    if (!element) {
+        console.warn("Removing '" + name + "' class from invalid element: ", element);
+        return;
+    }
+
+    // Remove class with a regex.
+    var regex = new RegExp('(?:^|\\s)' + name + '(?!\\S)', 'g');
+    element.className = element.className.replace(regex, '');
+
+}
+
+
+/**
+ * Retrieves an element by its ID.
+ */
+var getElement = document.getElementById.bind(document);
+
+
+/**
+ * Hides an element.
+ */
+function hideElement(element) {
+    addClass(element, "hidden");
+}
+
+
+/**
+ * Un-hides an element.
+ */
+function showElement(element) {
+    removeClass(element, "hidden");
+}
+/**
  * Ensures a value is numeric and finite.
  *
  * Returns true if the value if a number or a numeric string, false otherwise.
@@ -23,7 +78,21 @@ function isNumeric(value) {
 
 }
 /**
- * Primary game object.
+ * The single instance of our game.
+ */
+var game;
+
+
+/**
+ * Once the page loads, create the instance of our game.
+ */
+window.onload = function() {
+    game = new Game;
+}
+
+
+/**
+ * Central game object.
  *
  * Controls the flow of the game.
  */
@@ -37,8 +106,8 @@ function Game() {
         RESULT: 3
     };
 
-    // Current game state.
-    this.state = this.STATES.TITLE;
+    // Initialize game state.
+    this.toState(this.STATES.TITLE);
 
     // Validate FPS setting.
     if (!isNumeric(config.fps)) {
@@ -55,14 +124,35 @@ function Game() {
     // Start the game.
     this.intervalHandle = setInterval(this.execute.bind(this), loopInterval);
 
+    // Now that the game is initialized, un-hide the body.
+    showElement(document.body);
+
 }
 
 
 /**
  * Moves the gameplay into a different state.
+ *
+ * If provided with an invalid state, execute() will stop the game.
  */
 Game.prototype.toState = function(state) {
 
+    // Update the current state.
+    this.state = state;
+
+    // Hide all states.
+    hideElement(getElement("state-error"));
+    hideElement(getElement("state-title"));
+
+    // Move to error state.
+    if (state === this.STATES.ERROR) {
+        showElement(getElement("state-error"));
+    }
+
+    // Move to title screen.
+    else if (state === this.STATES.TITLE) {
+        showElement(getElement("state-title"));
+    }
 }
 
 
@@ -75,10 +165,10 @@ Game.prototype.stop = function(msg) {
     clearInterval(this.intervalHandle);
 
     // Set error state.
-    this.state = this.STATES.ERROR;
+    this.toState(this.STATES.ERROR);
 
     // Set error message.
-    getElement("state-error").innerHTML = msg;
+    getElement("error-message").innerHTML = msg;
 }
 
 
@@ -86,18 +176,18 @@ Game.prototype.stop = function(msg) {
  * Executes a single frame of the game.
  */
 Game.prototype.execute = function() {
-    this.stop("Testing");
 
-    console.log("executing");
-
-
+    // Intentionally do nothing on an error.
     if (this.state === this.STATES.ERROR) {
+
     }
 
+    // Execute title frame.
     else if (this.state === this.STATES.TITLE) {
         this.title(); 
     }
 
+    // Invalid state.
     else {
         this.stop("Invalid game state");
     }
@@ -108,44 +198,7 @@ Game.prototype.execute = function() {
  * Executes a single frame of the title screen.
  */
 Game.prototype.title = function() {
-}
-/**
- * Adds a class to an element.
- */
-function addClass(element, name) {
-    element.className = name;
-}
 
-
-/**
- * Removes a class from an element.
- */
-function removeClass(element, name) {
-    var regex = new RegExp('(?:^|\\s)' + name + '(?!\\S)', 'g');
-
-    element.className = element.className.replace(regex, '');
-}
-
-
-/**
- * Retrieves an element by its ID.
- */
-var getElement = document.getElementById.bind(document);
-
-
-/**
- * Hides an element.
- */
-function hideElement(element) {
-    element.className += 'hidden';
-}
-
-
-/**
- * Un-hides an element.
- */
-function showElement(element) {
-    element.className -= 'hidden';
 }
 /**
  * Configuration settings for the game and its underlying engine.
