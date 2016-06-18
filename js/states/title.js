@@ -30,6 +30,6 @@ TitleState.stop = function() {
     title.removeEventListener("click", TitleState.stop);
 
     // Start a Play state.
-    game.state = new PlayState;
+    game.setState(new PlayState);
 
 }

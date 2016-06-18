@@ -6,7 +6,7 @@
 function isNumeric(value) {
     
     // Force the value to be a number.
-    v = +value;
+    v = parseFloat(value);
 
     // Not a number.
     if (isNaN(v)) {
