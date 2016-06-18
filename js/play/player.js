@@ -35,6 +35,43 @@ function Player(first) {
  */
 Player.prototype.moveRelatively = function(upward) {
 
+    var top;
+
+    // Get the boundary information for this player's graphic.
+    var bounds = this.graphic.getBoundingClientRect();
+
+    // Try to move upward.
+    if (upward) {
+
+        // Cannot move upward. Position at top.
+        if ((bounds.top - config.playerSpeed) < 0) {
+            top = "0";
+        }
+
+        // Move upward.
+        else {
+            top = bounds.top - config.playerSpeed;
+        }
+
+    }
+
+    // Try to move downward.
+    else {
+
+        // Cannot move downward. Position at bottom.
+        if ((bounds.bottom + config.playerSpeed) > document.documentElement.clientHeight) {
+            top = document.documentElement.clientHeight - bounds.height;
+        }
+
+        // Move downward.
+        else {
+            top = bounds.top + config.playerSpeed;
+        }
+    }
+
+    // Set new position.
+    this.graphic.style.top = top + "px";
+
 }
 
 

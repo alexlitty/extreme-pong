@@ -3,7 +3,10 @@
  */
 var config = {
 
-    // The desired frames per second.
-    fps: 30
+    // Desired frames per second.
+    fps: 30,
+
+    // Default player speed during relative movement.
+    playerSpeed: 10
 
 };
