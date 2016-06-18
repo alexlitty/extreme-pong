@@ -1,4 +1,21 @@
 /**
+ * Adds number value to a string pixel value, and returns a string pixel value.
+ */
+function addPixels(measurement, value) {
+
+    // Invalid measurement.
+    if (!isNumeric(measurement)) {
+        console.warn("Adding value to invalid pixel measurement: ", measurement);
+        return;
+    }
+
+    // Return new pixel value.
+    return (parseInt(measurement) + value) + "px";
+
+}
+
+
+/**
  * Vertically centers an element on the page using absolute positioning.
  */
 function centerElementVertically(element) {

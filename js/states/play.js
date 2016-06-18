@@ -39,4 +39,7 @@ PlayState.prototype.execute = function() {
         this.playerOne.moveRelatively(false);
     }
 
+    // Move the ball.
+    this.ball.move();
+
 }

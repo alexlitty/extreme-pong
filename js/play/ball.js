@@ -14,7 +14,24 @@ function Ball() {
     // Position ball.
     centerElement(this.graphic);
 
+    // Set an initial velocity.
+    this.velocity = {
+        x: 5,
+        y: 5
+    };
+
     // Insert the visual element.
     view.appendChild(this.graphic);
+
+}
+
+
+/**
+ * Move the ball according "physics."
+ */
+Ball.prototype.move = function() {
+
+    this.graphic.style.left = addPixels(this.graphic.style.left, this.velocity.x);
+    this.graphic.style.top = addPixels(this.graphic.style.top, this.velocity.y);
 
 }
