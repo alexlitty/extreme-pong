@@ -24,5 +24,5 @@ document.addEventListener("keyup", function(e) {
  * Checks if a key is currently being pressed.
  */
 function isKeyPressed(key) {
-    return keyboard[e.key];
+    return keyboard[key];
 }
