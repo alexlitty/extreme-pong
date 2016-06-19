@@ -9,14 +9,28 @@ function PlayState() {
     this.playerOne = new Player(true);
     this.playerTwo = new Player(false);
 
-    // Create a single ball.
-    this.ball = new Ball;
+    // Start with a single ball.
+    this.balls = [ ];
+    this.addBall();
 
     // Initialize state loop.
     setInterval(this.execute.bind(this), game.fpsInterval);
 
     // Show play screen.
     showElement(view);
+
+}
+
+
+/**
+ * Creates a new ball on the table.
+ */
+PlayState.prototype.addBall = function() { 
+
+    var view = getElement("state-play");
+
+    // Add a new ball to the ongoing list of balls.
+    this.balls.push(new Ball);
 
 }
 
@@ -39,7 +53,15 @@ PlayState.prototype.execute = function() {
         this.playerOne.moveRelatively(false);
     }
 
-    // Move the ball.
-    this.ball.move();
+    // Move all balls.
+    var ballCount = this.balls.length;
+    for (var i = 0; i < ballCount; i++) {
+
+        var ballBounds = this.balls[i].move();
+        if (ballBounds.right <= 0) {
+
+        }
+
+    }
 
 }

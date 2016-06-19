@@ -27,24 +27,32 @@ function Ball() {
 
 
 /**
+ * Destroys the ball.
+ */
+Ball.prototype.destroy = function() {
+    
+    var view = getElement("state-play");
+
+    // Destroy the ball's visual element.
+    view.removeChild(this.graphic);
+
+}
+
+
+/**
  * Move the ball according "physics."
  *
- * Unless provided with a velocity, the ball will move according to its internal velocity.
+ * Returns the boundaries of the ball after moving.
  */
-Ball.prototype.move = function(velocity) { 
-
-    // Use default, internal velocity.
-    if (!velocity) {
-        velocity = this.velocity;
-    }
+Ball.prototype.move = function() { 
 
     // Get current position.
     var bounds = this.graphic.getBoundingClientRect();
 
     // Calculate target position.
     var targetBounds = {
-        left: parseInt(this.graphic.style.left) + velocity.x,
-        top: parseInt(this.graphic.style.top) + velocity.y
+        left: parseInt(this.graphic.style.left) + this.velocity.x,
+        top: parseInt(this.graphic.style.top) + this.velocity.y
     };
 
     targetBounds.right = targetBounds.left + bounds.width;
