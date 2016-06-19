@@ -1,0 +1,32 @@
+/**
+ * Makes an object "drop" onto the page.
+ */
+@-webkit-keyframes drop {
+    from {
+        -webkit-transform: scale(5) rotate(270deg);
+    }
+
+    to {
+        -webkit-transform: scale(1) rotate(0deg);
+    }
+}
+
+@-moz-keyframes drop {
+    from {
+        -moz-transform: scale(2);
+    }
+
+    to {
+        -moz-transform: scale(1);
+    }
+}
+
+@-o-keyframes drop {
+    from {
+        -o-transform: scale(2);
+    }
+
+    to {
+        -o-transform: scale(1);
+    }
+}
