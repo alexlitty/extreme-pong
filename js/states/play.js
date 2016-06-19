@@ -20,6 +20,7 @@ function PlayState() {
     ];
 
     // Initialize state loop.
+    this.paused = false;
     setInterval(this.execute.bind(this), game.fpsInterval);
 
     // Show play screen.
@@ -45,6 +46,11 @@ PlayState.prototype.addBall = function() {
  * Executes a frame in the play state.
  */
 PlayState.prototype.execute = function() {
+
+    // If the game is paused, do nothing.
+    if (this.paused) {
+        return;
+    }
 
     // Move players by keyboard.
     if (isKeyPressed("ArrowUp")) {
