@@ -87,4 +87,9 @@ PlayState.prototype.execute = function() {
 
     }
 
+    // Always keep one ball in the game.
+    if (!this.balls.length) {
+        this.addBall();
+    }
+
 }
