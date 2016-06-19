@@ -1,3 +1,26 @@
+/**
+ * Player scores.
+ */
+#state-play #score, #state-play #score > * {
+    height: 100%;
+    text-align: center;
+}
+
+#state-play #score > * {
+    display: inline-block;
+
+    margin: 0;
+    padding: 32px;
+}
+
+#state-play #score-player-one {
+    border-right: 1px dotted #efefef;
+}
+
+/**
+ * Play state objects.
+ */
+
 #state-play .player {
     position: absolute;
     display: inline-block;
