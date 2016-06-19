@@ -10,6 +10,8 @@ function Player(first) {
 
     // Create a visual element for the player.
     this.graphic = document.createElement("div");
+    this.graphic.id = "player-" + (first ? "one" : "two");
+
     this.graphic.style.width = "10px";
     this.graphic.style.height = "50px";
     addClass(this.graphic, "player");

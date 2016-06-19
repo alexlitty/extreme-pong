@@ -16,8 +16,8 @@ function Ball() {
 
     // Set an initial velocity.
     this.velocity = {
-        x: 5,
-        y: 5
+        x: 15,
+        y: 15
     };
 
     // Insert the visual element.
@@ -53,17 +53,46 @@ Ball.prototype.move = function(velocity) {
     // Collision with top wall.
     if (targetBounds.top <= 0) {
         this.bounceVertically();
+        return;
     }
 
     // Collision with bottom wall.
     if (targetBounds.bottom >= document.documentElement.clientHeight) {
         this.bounceVertically();
+        return;
     }
 
-    // Move the ball to the new position.
+    // Collision with player one.
+    var intersect = isIntersecting(targetBounds, getElement("player-one").getBoundingClientRect());
+    if (intersect) {
+        if (intersect === INTERSECT.VERTICAL) {
+            this.bounceVertically();
+            return;
+        }
+
+        else {
+            this.bounceHorizontally();
+            return;
+        }
+    }
+
+    // Collision with player two.
+    intersect = isIntersecting(targetBounds, getElement("player-two").getBoundingClientRect());
+    if (intersect) {
+        if (intersect === INTERSECT.VERTICAL) {
+            this.bounceVertically();
+            return;
+        }
+
+        else {
+            this.bounceHorizontally();
+            return;
+        }
+    }
+
+    // No collision. Move freely.
     this.graphic.style.left = targetBounds.left + "px";
     this.graphic.style.top = targetBounds.top + "px";
-
 }
 
 
@@ -71,8 +100,8 @@ Ball.prototype.move = function(velocity) {
  * Perform a vertical bounce.
  */
 Ball.prototype.bounceVertically = function() {
-    console.log("Bouncing vertically");
     this.velocity.y = -this.velocity.y;
+    this.move();
 }
 
 
@@ -80,6 +109,6 @@ Ball.prototype.bounceVertically = function() {
  * Perform a horizontal bounce.
  */
 Ball.prototype.bounceHorizontally = function() {
-    console.log("Bouncing horizontally");
     this.velocity.x = -this.velocity.x;
+    this.move();
 }

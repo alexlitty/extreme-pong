@@ -7,6 +7,6 @@ var config = {
     fps: 30,
 
     // Default player speed during relative movement.
-    playerSpeed: 10
+    playerSpeed: 20
 
 };
