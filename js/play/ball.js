@@ -16,9 +16,17 @@ function Ball() {
 
     // Set an initial velocity.
     this.velocity = {
-        x: 15,
-        y: 15
+        x: randomInt(5, 10),
+        y: randomInt(2, 7)
     };
+
+    if (Math.random() >= 0.5) {
+        this.velocity.x = -this.velocity.x;
+    }
+
+    if (Math.random() >= 0.5) {
+        this.velocity.y = -this.velocity.y;
+    }
 
     // Insert the visual element.
     view.appendChild(this.graphic);
@@ -81,7 +89,7 @@ Ball.prototype.move = function(objects) {
             var objectBounds = objects[i].getBoundingClientRect();
 
             // Check for a collision with this object.
-            var intersect = isIntersecting(targetBounds, objectBounds);
+            var intersect = isIntersecting(targetBounds, objectBounds, this.velocity);
             if (intersect) {
 
                 // Vertical collision.

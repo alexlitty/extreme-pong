@@ -4,7 +4,7 @@
 var config = {
 
     // Desired frames per second.
-    fps: 30,
+    fps: 60,
 
     // Default player speed during relative movement.
     playerSpeed: 20

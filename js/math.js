@@ -1,10 +1,10 @@
 /**
- * Types of intersections.
+ * Returns a random integer.
  */
-var INTERSECT = {
-    VERTICAL: 1,
-    HORIZONTAL: 2
-};
+function randomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 
 
 /**
@@ -19,11 +19,20 @@ function getCenter(bounds) {
 
 
 /**
+ * Types of intersections.
+ */
+var INTERSECT = {
+    VERTICAL: 1,
+    HORIZONTAL: 2
+};
+
+
+/**
  * Check if two rectangular boundaries are intersecting.
  *
  * Returns the axis of intersection.
  */
-function isIntersecting(bounds, otherBounds) {
+function isIntersecting(bounds, otherBounds, velocity) {
 
     // Check if boundaries are not intersecting.
     if (bounds.right < otherBounds.left) {
@@ -43,26 +52,28 @@ function isIntersecting(bounds, otherBounds) {
     }
 
     // Boundaries must be intersecting. Determine on which axis.
-    var boundsCenter = getCenter(bounds);
-    var otherBoundsCenter = getCenter(otherBounds);
+    if (velocity.x > 0) {
 
-    var wy = (bounds.width + otherBounds.width) * (boundsCenter.y - otherBoundsCenter.y);
-    var hx = (bounds.height + otherBounds.height) * (boundsCenter.x - otherBoundsCenter.y);
-
-    if (wy > hx) {
-        if (wy > -hx) {
+        if (bounds.left < otherBounds.left) {
             return INTERSECT.HORIZONTAL;
-        } else {
+        }
+
+        else {
             return INTERSECT.VERTICAL;
         }
+
     }
 
     else {
-        if (wy > -hx) {
-            return INTERSECT.VERTICAL;
-        } else {
+
+        if (bounds.right > otherBounds.right) {
             return INTERSECT.HORIZONTAL;
         }
+
+        else {
+            return INTERSECT.VERTICAL;
+        }
+
     }
 
 }
