@@ -42,9 +42,11 @@ Ball.prototype.destroy = function() {
 /**
  * Move the ball according "physics."
  *
+ * Objects is an array of collision-ready elements.
+ *
  * Returns the boundaries of the ball after moving.
  */
-Ball.prototype.move = function() { 
+Ball.prototype.move = function(objects) { 
 
     // Get current position.
     var bounds = this.graphic.getBoundingClientRect();
@@ -61,46 +63,49 @@ Ball.prototype.move = function() {
     // Collision with top wall.
     if (targetBounds.top <= 0) {
         this.bounceVertically();
-        return;
     }
 
     // Collision with bottom wall.
-    if (targetBounds.bottom >= document.documentElement.clientHeight) {
+    else if (targetBounds.bottom >= document.documentElement.clientHeight) {
         this.bounceVertically();
-        return;
     }
 
-    // Collision with player one.
-    var intersect = isIntersecting(targetBounds, getElement("player-one").getBoundingClientRect());
-    if (intersect) {
-        if (intersect === INTERSECT.VERTICAL) {
-            this.bounceVertically();
-            return;
+    // Collision with objects.
+    else {
+
+        // Check for a collision with each object.
+        var objectsLength = objects.length;
+        for (var i = 0; i < objectsLength; i++) {
+
+            // Get the object's boundaries.
+            var objectBounds = objects[i].getBoundingClientRect();
+
+            // Check for a collision with this object.
+            var intersect = isIntersecting(targetBounds, objectBounds);
+            if (intersect) {
+
+                // Vertical collision.
+                if (intersect === INTERSECT.VERTICAL) {
+                    this.bounceVertically();
+                }
+
+                // Horizontal collision.
+                else {
+                    this.bounceHorizontally();
+                }
+
+            }
+
         }
 
-        else {
-            this.bounceHorizontally();
-            return;
-        }
     }
 
-    // Collision with player two.
-    intersect = isIntersecting(targetBounds, getElement("player-two").getBoundingClientRect());
-    if (intersect) {
-        if (intersect === INTERSECT.VERTICAL) {
-            this.bounceVertically();
-            return;
-        }
-
-        else {
-            this.bounceHorizontally();
-            return;
-        }
-    }
-
-    // No collision. Move freely.
+    // Perform the movement.
     this.graphic.style.left = targetBounds.left + "px";
     this.graphic.style.top = targetBounds.top + "px";
+
+    // Return the new boundaries.
+    return targetBounds;
 }
 
 
@@ -109,7 +114,6 @@ Ball.prototype.move = function() {
  */
 Ball.prototype.bounceVertically = function() {
     this.velocity.y = -this.velocity.y;
-    this.move();
 }
 
 
@@ -118,5 +122,4 @@ Ball.prototype.bounceVertically = function() {
  */
 Ball.prototype.bounceHorizontally = function() {
     this.velocity.x = -this.velocity.x;
-    this.move();
 }

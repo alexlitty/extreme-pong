@@ -13,6 +13,12 @@ function PlayState() {
     this.balls = [ ];
     this.addBall();
 
+    // Create list of collision-ready elements.
+    this.objects = [
+        this.playerOne.graphic,
+        this.playerTwo.graphic
+    ];
+
     // Initialize state loop.
     setInterval(this.execute.bind(this), game.fpsInterval);
 
@@ -54,12 +60,29 @@ PlayState.prototype.execute = function() {
     }
 
     // Move all balls.
-    var ballCount = this.balls.length;
-    for (var i = 0; i < ballCount; i++) {
+    var i = this.balls.length;
+    while (i--) {
 
-        var ballBounds = this.balls[i].move();
+        // Move this ball.
+        var ballBounds = this.balls[i].move(this.objects);
+        var scored = false;
+
+        // Player one scored!
+        if (ballBounds.left >= document.documentElement.clientWidth) {
+            this.playerOne.addScore();
+            scored = true;
+        }
+
+        // Player two scored!
         if (ballBounds.right <= 0) {
+            this.playerTwo.addScore();
+            scored = true;
+        }
 
+        // Remove this ball if it's out of the game.
+        if (scored) {
+            this.balls[i].destroy();
+            this.balls.splice(i, 1);
         }
 
     }

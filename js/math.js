@@ -35,12 +35,10 @@ function isIntersecting(bounds, otherBounds) {
     }
 
     if (bounds.top > otherBounds.bottom) {
-        console.log("Too high");
         return false;
     }
 
     if (bounds.bottom < otherBounds.top) {
-        console.log("Too low");
         return false;
     }
 

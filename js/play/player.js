@@ -23,9 +23,42 @@ function Player(first) {
     } else {
         this.graphic.style.right = "32px";
     }
+
+    // Start the player's score.
+    this.scoreElement = getElement("score-" + this.graphic.id);
+    this.score = 0;
     
     // Insert the visual element.
     view.appendChild(this.graphic);
+
+}
+
+
+/**
+ * Absolutely sets the player's score.
+ *
+ * Also updates the score's visual element.
+ */
+Player.prototype.setScore = function(points) {
+
+    this.score = points;
+    this.scoreElement.innerHTML = this.score;
+
+}
+
+
+/**
+ * Add points to the player's score.
+ */
+Player.prototype.addScore = function(points) {
+
+    // Default to a single point.
+    if (!points) {
+        points = 1;
+    }
+
+    // Set the new total score.
+    this.setScore(this.score + points);
 
 }
 
