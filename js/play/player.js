@@ -26,7 +26,7 @@ function Player(first) {
 
     // Start the player's score.
     this.scoreElement = getElement("score-" + this.graphic.id);
-    this.score = 0;
+    this.setScore(0);
     
     // Insert the visual element.
     view.appendChild(this.graphic);
