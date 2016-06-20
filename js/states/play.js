@@ -118,6 +118,10 @@ PlayState.prototype.sendMovement = function(x, y) {
  */
 PlayState.prototype.handleResize = function() {
 
+    // Ensure all objects are visible in the new viewport.
+    this.playerOne.forceIntoBounds();
+    this.playerTwo.forceIntoBounds();
+
     // Device is in portrait, or browser isn't wide enough.
     if (window.innerHeight > window.innerWidth) {
         showElement(getElement("orientation-message"));
@@ -126,12 +130,6 @@ PlayState.prototype.handleResize = function() {
     
     // Device is in landscape, or browser is wide enough.
     else {
-
-        // Ensure all objects are visible in the new viewport.
-        this.playerOne.forceIntoBounds();
-        this.playerTwo.forceIntoBounds();
-
-        // Hide orientation message, resume gameplay.
         hideElement(getElement("orientation-message"));
         this.resume();
     }
