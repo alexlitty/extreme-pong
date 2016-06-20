@@ -1,6 +1,8 @@
-# Pong
+# Extreme Pong
 
-This is a website implementation of Pong, prompted by a coding interview with Celtra. This two-player iteration is built for both mobile and desktop devices, with no external frameworks or libraries.
+[Try it out!](http://www.alexlitty.com/pong/)
+
+This is a browser implementation of Pong, prompted by a coding interview with Celtra. This two-player iteration is built for both mobile and desktop devices, with no external frameworks or libraries.
 
 ## How to Play
 
