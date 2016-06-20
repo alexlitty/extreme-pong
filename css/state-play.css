@@ -54,6 +54,7 @@
     border-right: 1px dotted #efefef;
 }
 
+
 /**
  * Play state objects.
  */
@@ -82,8 +83,9 @@
 
     background-color: #efefef;
 
-
     -webkit-animation: drop 0.5s 1 linear;
     -moz-animation: drop 1s 1 linear;
+    -ms-animation: drop 1s 1 linear;
     -o-animation: drop 1s 1 linear;
+    animation: drop 1s 1 linear;
 }

@@ -13,20 +13,30 @@
 
 @-moz-keyframes drop {
     from {
-        -moz-transform: scale(2);
+        -moz-transform: scale(5) rotate(270deg);
     }
 
     to {
-        -moz-transform: scale(1);
+        -moz-transform: scale(1) rotate(0deg);
+    }
+}
+
+@-ms-keyframes-drop {
+    from {
+        -ms-transform: scale(5) rotate(270deg);
+    }
+
+    to {
+        -ms-transform: scale(1) rotate(0deg);
     }
 }
 
 @-o-keyframes drop {
     from {
-        -o-transform: scale(2);
+        -o-transform: scale(5) rotate(270deg);
     }
 
     to {
-        -o-transform: scale(1);
+        -o-transform: scale(1) rotate(0deg);
     }
 }
