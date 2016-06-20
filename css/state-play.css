@@ -62,7 +62,18 @@
     position: absolute;
     display: inline-block;
 
+    width: 10px;
+    height: 50px;
+
     background-color: #efefef;
+}
+
+#state-play .player.one {
+    left: 64px;
+}
+
+#state-play .player.two {
+    right: 64px;
 }
 
 #state-play .ball {

@@ -12,16 +12,18 @@ function Player(first) {
     this.graphic = document.createElement("div");
     this.graphic.id = "player-" + (first ? "one" : "two");
 
-    this.graphic.style.width = "10px";
-    this.graphic.style.height = "50px";
+    this.graphic.style.width = "1vw";
+    this.graphic.style.height = "9vh";
+
     addClass(this.graphic, "player");
+    addClass(this.graphic, first ? "one" : "two");
 
     // Position player.
     centerElementVertically(this.graphic);
     if (first) {
-        this.graphic.style.left = "32px";
+        this.graphic.style.left = "9vw";
     } else {
-        this.graphic.style.right = "32px";
+        this.graphic.style.right = "9vw";
     }
 
     // Start the player's score.
