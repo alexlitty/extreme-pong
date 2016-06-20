@@ -2,6 +2,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+    font-family: 'Share Tech Mono';
 }
 
 #state-title h1, #state-title h2 {
@@ -13,10 +15,14 @@
 }
 
 #state-title h1 {
-    font-size: 12vw;
+    background-color: #efefef;
+    padding: 4px 16px;
+    color: #111;
+
+    font-size: 500%;
 }
 
 #state-title h2 {
-    font-size: 6vw;
+    font-size:
     color: #999;
 }
