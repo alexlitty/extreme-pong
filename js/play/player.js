@@ -139,3 +139,21 @@ Player.prototype.moveAbsolutely = function(y) {
     this.graphic.style.top = top + "px";
 
 }
+
+
+/**
+ * If out of bounds, force the player into the viewport boundaries.
+ *
+ * Used when the window is resized to a smaller height.
+ */
+Player.prototype.forceIntoBounds = function() {
+
+    // Player is already within the viewport boundaries.
+    if (isInBounds(this.graphic)) {
+        return;
+    }
+
+    // Move player into the viewport.
+    centerElementVertically(this.graphic);
+
+}

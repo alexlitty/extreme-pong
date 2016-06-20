@@ -72,3 +72,34 @@ function centerElement(element) {
     centerElementVertically(element);
     centerElementHorizontally(element);
 }
+
+
+/**
+ * Whether an element is completely inside the viewport window.
+ */
+function isInBounds(element) {
+
+    // Get the boundaries of the element.
+    var bounds = element.getBoundingClientRect();
+
+    // Check the position of each boundary side.
+    if (bounds.top < 0) {
+        return false;
+    }
+
+    if (bounds.left < 0) {
+        return false;
+    }
+
+    if (bounds.right > document.documentElement.clientWidth) {
+        return false;
+    }
+
+    if (bounds.bottom > document.documentElement.clientHeight) {
+        return false;
+    }
+
+    // Element is completely within viewport.
+    return true;
+
+}
