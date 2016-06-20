@@ -196,6 +196,10 @@ PlayState.prototype.addBall = function() {
         // Add a new ball to the ongoing list of balls.
         self.balls.push(new Ball);
 
+        // After a short period, add another ball.
+        var period = randomInt(0, 3) * 1000;
+        setTimeout(self.addBall.bind(self), period);
+
     });
 
 }
@@ -254,8 +258,6 @@ PlayState.prototype.execute = function() {
 
     // Always keep one ball in the game.
     if (!this.balls.length) {
-        this.addBall();
-        this.addBall();
         this.addBall();
     }
 
