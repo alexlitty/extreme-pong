@@ -36,6 +36,40 @@
 
 
 /**
+ * Countdown in the middle of the play view.
+ */
+#countdown-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #111;
+
+    font-size: 400%;
+}
+
+#countdown {
+    background-color: #efefef;
+    border: 1px solid #111;
+    padding: 4px 28px;
+}
+
+#countdown.drop {
+    -webkit-animation: dropslide 0.2s 1 linear;
+    -moz-animation: dropslide 0.2s 1 linear;
+    -ms-animation: dropslide 0.2s 1 linear;
+    -o-animation: dropslide 0.2s 1 linear;
+    animation: dropslide 0.2s 1 linear;
+}
+
+
+/**
  * Player scores.
  */
 #state-play #score, #state-play #score > * {
@@ -84,8 +118,8 @@
     background-color: #efefef;
 
     -webkit-animation: drop 0.5s 1 linear;
-    -moz-animation: drop 1s 1 linear;
-    -ms-animation: drop 1s 1 linear;
-    -o-animation: drop 1s 1 linear;
-    animation: drop 1s 1 linear;
+    -moz-animation: drop 0.5s 1 linear;
+    -ms-animation: drop 0.5s 1 linear;
+    -o-animation: drop 0.5s 1 linear;
+    animation: drop 0.5s 1 linear;
 }

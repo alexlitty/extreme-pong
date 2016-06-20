@@ -138,14 +138,67 @@ PlayState.prototype.handleResize = function() {
 
 
 /**
+ * Start, continue, or stop a countdown.
+ */
+PlayState.prototype.countdown = function(callback, number) {
+
+    // Get the visual countdown element.
+    var countdownElement = getElement("countdown");
+
+    // Stop the countdown.
+    if (number < 1) {
+
+        // Hide the countdown, release the countdown lock.
+        hideElement(countdownElement);
+        this.countdownLock = false;
+
+        callback();
+        return;
+    }
+
+    // Start the countdown 
+    if (!number) {
+
+        // A countdown is already active. Don't start another.
+        if (this.countdownLock) {
+            return;
+        }
+
+        // Show the countdown.
+        showElement(countdownElement);
+
+        // Set the countdown lock and initial number.
+        this.countdownLock = true;
+        number = 3;
+    }
+
+    // Update the element.
+    countdownElement.innerHTML = number;
+
+    // Restart "drop" animation.
+    removeClass(countdownElement, "drop");
+    addClass(countdownElement, "drop");
+
+    // Continue the countdown.
+    setTimeout(this.countdown.bind(this), 450, callback, number - 1);
+
+}
+
+
+/**
  * Creates a new ball on the table.
  */
 PlayState.prototype.addBall = function() { 
+    var self = this;
 
-    var view = getElement("state-play");
+    this.countdown(function() {
 
-    // Add a new ball to the ongoing list of balls.
-    this.balls.push(new Ball);
+        var view = getElement("state-play");
+
+        // Add a new ball to the ongoing list of balls.
+        self.balls.push(new Ball);
+
+    });
 
 }
 
