@@ -82,6 +82,7 @@ Ball.prototype.move = function(objects) {
     else {
 
         // Check for a collision with each object.
+        var collided;
         var objectsLength = objects.length;
         for (var i = 0; i < objectsLength; i++) {
 
@@ -91,15 +92,34 @@ Ball.prototype.move = function(objects) {
             // Check for a collision with this object.
             var intersect = isIntersecting(targetBounds, objectBounds, this.velocity);
             if (intersect) {
+                collided = false;
 
                 // Vertical collision.
                 if (intersect === INTERSECT.VERTICAL) {
+                    collided = true;
                     this.bounceVertically();
                 }
 
                 // Horizontal collision.
                 else {
+                    collided = true;
                     this.bounceHorizontally();
+                }
+
+                // Trigger the object's collision styles.
+                if (collided) {
+
+                    var obj = objects[i];
+                    addClass(obj, "hit");
+
+                    // Assign a random background color.
+                    obj.style.background = randomColor();
+
+                    // Wait for the hit styles to go into effect, then remove them.
+                    setTimeout(function() {
+                        obj.style.background = "#efefef";
+                        removeClass(obj, "hit");
+                    }, 1);
                 }
 
             }

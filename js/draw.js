@@ -103,3 +103,23 @@ function isInBounds(element) {
     return true;
 
 }
+
+
+/**
+ * Generates a random hexadecimal color.
+ */
+function randomColor() {
+    var color = "#";
+
+    for (var i = 0; i < 3; i++) {
+        color += randomColor.hex[randomInt(0, randomColor.hex.length)];
+    }
+
+    return color;
+}
+
+
+/**
+ * Hexadecimal values which randomColor may sample from.
+ */
+randomColor.hex = '369ABC'.split('');

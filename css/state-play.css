@@ -90,7 +90,7 @@
 
 
 /**
- * Play state objects.
+ * Gameplay objects.
  */
 
 #state-play .player {
@@ -101,6 +101,20 @@
     height: 50px;
 
     background-color: #efefef;
+
+    -webkit-transition: background-color 0.2s ease-in;
+    -moz-transition: background-color 0.2s ease-in;
+    -ms-transition: background-color 0.2s ease-in;
+    -o-transition: background-color 0.2s ease-in;
+    transition: background-color 0.2s ease-in;
+}
+
+#state-play .player.hit {
+    -webkit-transition: background-color 0.0s ease-in;
+    -moz-transition: background-color 0.0s ease-in;
+    -ms-transition: background-color 0.0s ease-in;
+    -o-transition: background-color 0.0s ease-in;
+    transition: background-color 0.0s ease-in;
 }
 
 #state-play .player.one {
