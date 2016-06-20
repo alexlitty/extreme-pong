@@ -111,8 +111,31 @@ Player.prototype.moveRelatively = function(upward) {
 
 
 /**
- * Move the player absolutely. This is how the player moves on a touch device.
+ * Move the player absolutely. This is how the player moves with a mouse or touch device.
  */
-Player.prototype.moveAbsolutely = function(x) {
+Player.prototype.moveAbsolutely = function(y) {
+
+    var top;
+
+    // Get the boundary information for this player's graphic.
+    var bounds = this.graphic.getBoundingClientRect();
+
+    // Too high. Position at top.
+    if (y < (bounds.height / 2)) {
+        top = 0;
+    }
+    
+    // Too low. Position at bottom.
+    else if (y > (document.documentElement.clientHeight - (bounds.height / 2))) {
+        top = document.documentElement.clientHeight - bounds.height;
+    }
+
+    // Position anywhere.
+    else {
+        top = y - (bounds.height / 2);
+    }
+
+    // Set new position.
+    this.graphic.style.top = top + "px";
 
 }

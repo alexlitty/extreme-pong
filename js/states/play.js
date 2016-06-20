@@ -23,6 +23,16 @@ function PlayState() {
     window.addEventListener("resize", this.handleResize.bind(this));
     this.handleResize();
 
+    // Listen for user touches.
+    view.addEventListener("touchstart", this.handleTouch.bind(this), false);
+    view.addEventListener("touchmove", this.handleTouch.bind(this), false);
+
+    // Listen for mouse events.
+    view.addEventListener("click", this.handleMouse.bind(this), false);
+    view.addEventListener("mouseover", this.handleMouse.bind(this), false);
+    view.addEventListener("mousemove", this.handleMouse.bind(this), false);
+    view.addEventListener("mousedown", this.handleMouse.bind(this), false);
+
     // Initialize state loop.
     setInterval(this.execute.bind(this), game.fpsInterval);
 
@@ -45,6 +55,61 @@ PlayState.prototype.pause = function() {
  */
 PlayState.prototype.resume = function() {
     this.paused = false;
+}
+
+
+/**
+ * Handles user touches.
+ */
+PlayState.prototype.handleTouch = function(evt) {
+
+    evt.stopPropagation();
+    evt.preventDefault();
+
+    // Loop through all touches.
+    var touches = evt.changedTouches;
+    for (var i = 0; i < touches.length; i++) {
+
+        // Use this touch to move a player.
+        this.sendMovement(touches[i].pageX, touches[i].pageY);
+
+    }
+
+}
+
+
+/**
+ * Handles user clicks and other mouse events.
+ */
+PlayState.prototype.handleMouse = function(evt) {
+
+    evt.stopPropagation();
+    evt.preventDefault();
+
+    // Use this click to move a player.
+    this.sendMovement(evt.clientX, evt.clientY);
+
+}
+
+
+/**
+ * Sends an absolute movement, such as a user touch or click, to the correct player.
+ *
+ * If a touch or click occurred on the left side of the screen, it is received by player one.
+ * Otherwise, it is received by player two.
+ */
+PlayState.prototype.sendMovement = function(x, y) {
+
+    // Event is on left side. Send to player one.
+    if (x < (document.documentElement.clientWidth / 2)) {
+        this.playerOne.moveAbsolutely(y);
+    }
+
+    // Event is on right side. Send to player two.
+    else {
+        this.playerTwo.moveAbsolutely(y);
+    }
+
 }
 
 
