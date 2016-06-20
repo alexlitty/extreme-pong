@@ -1,4 +1,41 @@
 /**
+ * Orientation message.
+ *
+ * Appears when the viewport isn't wide enough.
+ */
+#orientation-message {
+    z-index: 1;
+    position: relative;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+
+    background-color: #111;
+
+    text-align: center;
+    font-size: 4vw;
+}
+
+#orientation-message h1, #orientation-message h2 {
+    margin: 4vh;
+    padding: 0;
+
+    display: block;
+    text-align: center;
+}
+
+#orientation-message h1 {
+    font-size: 12vw;
+}
+
+#orientation-message h2 {
+    font-size: 6vw;
+    color: #999;
+}
+
+
+/**
  * Player scores.
  */
 #state-play #score, #state-play #score > * {

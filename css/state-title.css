@@ -5,14 +5,18 @@
 }
 
 #state-title h1, #state-title h2 {
+    margin: 4vh;
+    padding: 0;
+
     display: block;
     text-align: center;
 }
 
 #state-title h1 {
-    font-size: 200%;
+    font-size: 12vw;
 }
 
 #state-title h2 {
-    font-size: 150%;
+    font-size: 6vw;
+    color: #999;
 }

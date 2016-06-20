@@ -19,12 +19,51 @@ function PlayState() {
         this.playerTwo.graphic
     ];
 
+    // Listen for window resizing, and handle the initial window size.
+    window.addEventListener("resize", this.handleResize.bind(this));
+    this.handleResize();
+
     // Initialize state loop.
-    this.paused = false;
     setInterval(this.execute.bind(this), game.fpsInterval);
 
-    // Show play screen.
+    // Show play state.
     showElement(view);
+
+}
+
+
+/**
+ * Pauses the play state.
+ */
+PlayState.prototype.pause = function() {
+    this.paused = true;
+}
+
+
+/**
+ * Starts or resumes the play state.
+ */
+PlayState.prototype.resume = function() {
+    this.paused = false;
+}
+
+
+/**
+ * Handles the window resizing.
+ */
+PlayState.prototype.handleResize = function() {
+
+    // Device is in portrait, or browser isn't wide enough.
+    if (window.innerHeight > window.innerWidth) {
+        showElement(getElement("orientation-message"));
+        this.pause();
+    }
+    
+    // Device is in landscape, or browser is wide enough.
+    else {
+        hideElement(getElement("orientation-message"));
+        this.resume();
+    }
 
 }
 

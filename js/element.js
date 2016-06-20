@@ -10,7 +10,7 @@ function addClass(element, name) {
     }
 
     // Add class.
-    element.className += name;
+    element.className += name + " ";
 
 }
 
