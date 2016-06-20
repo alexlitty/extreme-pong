@@ -150,6 +150,7 @@ PlayState.prototype.countdown = function(callback, number) {
 
         // Hide the countdown, release the countdown lock.
         hideElement(countdownElement);
+        removeClass(countdownElement, "drop");
         this.countdownLock = false;
 
         callback();
@@ -166,6 +167,7 @@ PlayState.prototype.countdown = function(callback, number) {
 
         // Show the countdown.
         showElement(countdownElement);
+        addClass(countdownElement, "drop");
 
         // Set the countdown lock and initial number.
         this.countdownLock = true;
@@ -174,10 +176,6 @@ PlayState.prototype.countdown = function(callback, number) {
 
     // Update the element.
     countdownElement.innerHTML = number;
-
-    // Restart "drop" animation.
-    removeClass(countdownElement, "drop");
-    addClass(countdownElement, "drop");
 
     // Continue the countdown.
     setTimeout(this.countdown.bind(this), 450, callback, number - 1);

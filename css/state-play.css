@@ -54,18 +54,18 @@
     font-size: 400%;
 }
 
-#countdown {
+#countdown, #countdown.hidden {
     background-color: #efefef;
     border: 1px solid #111;
     padding: 4px 28px;
 }
 
 #countdown.drop {
-    -webkit-animation: dropslide 0.2s 1 linear;
-    -moz-animation: dropslide 0.2s 1 linear;
-    -ms-animation: dropslide 0.2s 1 linear;
-    -o-animation: dropslide 0.2s 1 linear;
-    animation: dropslide 0.2s 1 linear;
+    -webkit-animation: drop 0.35s 1 linear;
+    -moz-animation: drop 0.35s 1 linear;
+    -ms-animation: drop 0.35s 1 linear;
+    -o-animation: drop 0.35s 1 linear;
+    animation: drop 0.35s 1 linear;
 }
 
 
